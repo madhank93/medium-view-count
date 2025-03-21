@@ -7,23 +7,14 @@ let totalSum = 0;
 
 // Iterate through each 'Views' element
 viewsElements.forEach((viewsElement) => {
-  // Find the preceding sibling 'div' and its 'p' child
   const valueElement = viewsElement.parentElement.querySelector("div > p");
+  const titleElement = viewsElement.closest("tr").querySelector("h2:first-of-type");
 
-  if (valueElement) {
-    let text = valueElement.textContent.trim();
-    let num;
+  if (valueElement && titleElement) {
+    let num = parseFloat(valueElement.textContent.replace("K", "")) * (valueElement.textContent.includes("K") ? 1000 : 1);
+    const title = titleElement.textContent.trim();
 
-    if (text.includes("K")) {
-      // Convert 'k' to 1000 and multiply
-      num = parseFloat(text.replace("K", "")) * 1000;
-    } else {
-      // Extract the numerical value directly
-      num = parseFloat(text);
-    }
-
-    console.log(`Article view: ${num}`);
-
+    console.log(`Article "${title}" with view: ${num}`);
     totalSum += num;
   }
 });
